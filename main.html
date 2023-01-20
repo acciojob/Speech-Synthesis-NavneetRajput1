@@ -37,6 +37,38 @@
   const stopButton = document.querySelector('#stop');
 
   //Your code goes here
+  synth.onvoiceschanged = () =>{
+    voices = window.speechSynthesis.getVoices();
+    speech.voice = voices[0];
+
+    voices.forEach((voice,i) =>(voicesDropdown.options[i] = new Option(voice.name, i)) );
+  };
+
+  option[0].addEventListener("input",()=>{
+    speech.rate = rate;
+    document.querySelector('#rate-label').innerHTML = rate;
+  });
+
+  option[1].addEventListener("input",()=>{
+    let pitch = option[1].value;
+
+    speech.pitch = pitch;
+
+    document.querySelector('#pitch-label').innerHTML = pitch;
+  })
+
+  voicesDropdown.addEventListener("change",()=>{
+    speech.voice =voices[voicesDropdown.value];
+  });
+
+  speakButton.addEventListener("click",()=>{
+    speech.text = options[2].value;
+    window.speechSynthesis.speak(speech);
+  });
+
+  stopButton.addEventListener("click",()=>{
+    window.speechSynthesis.pause();
+  } )
 </script>
 
 </body>
